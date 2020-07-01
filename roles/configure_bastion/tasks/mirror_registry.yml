@@ -1,0 +1,31 @@
+---
+
+- name: Obtain registry certificate
+  shell: 'sudo scp {{ registry_name }}:{{ registry_dir }}/certs/{{ registry_name }}.crt {{ install_dir }}/ssl/'
+
+- name: Update CA trust
+  shell: 'sudo cp {{ install_dir }}/ssl/{{ registry_name }}.crt /etc/pki/ca-trust/source/anchors/ && sudo update-ca-trust'
+
+- name: Create registry pull secret
+  become: yes
+  shell: 'podman login -u {{ user }} -p {{ user_passwd }} --authfile {{ registry_pull_secret }} {{ registry_name }}:5000'
+  args:
+    creates: '{{ install_dir }}/pullsecret_config.json'
+
+- name: Merge registry pull secret with OCP pull secret
+  become: yes
+  shell: jq -c --argjson var "$(jq .auths {{ install_dir }}/pullsecret_config.json)" '.auths += $var' {{ install_dir }}/ocp_pullsecret.json > {{ install_dir }}/merged_pullsecret.json
+  args:
+    creates: '{{ install_dir }}/merged_pullsecret.json'
+
+- name: Change owner for pull secrets
+  become: yes
+  file:
+    path: '{{ install_dir }}/{{ item }}'
+    owner: "{{ owner }}"
+  loop:
+  - pullsecret_config.json
+  - merged_pullsecret.json
+
+- name: Mirror the repository
+  shell: "oc image mirror --from-dir='{{ install_dir }}/mirror' file://openshift/release:4.3.8* '{{ LOCAL_REGISTRY }}/{{ LOCAL_REPOSITORY }}'"

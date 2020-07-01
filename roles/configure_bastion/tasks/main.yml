@@ -1,0 +1,7 @@
+---
+
+- import_tasks: setup.yml
+
+- import_tasks: create_registry.yml
+
+- import_tasks: mirror_registry.yml

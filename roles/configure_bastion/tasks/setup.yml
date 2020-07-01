@@ -1,0 +1,43 @@
+---
+
+- name: Create installation directory with backup and ssl
+  file:
+    path: "{{ install_dir }}/{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+  - bak
+  - ssl
+  - data
+  - mirror
+  - auth
+  - registry
+  - user-data
+  - .ssh
+
+- name: Extract OC client
+  unarchive:
+    src: '{{ home_dir }}/openshift-client-linux-{{ OCP_RELEASE }}.tar.gz'
+    dest: '{{ home_dir }}'
+
+- name: Extract openshift-install
+  unarchive:
+    src: '{{ home_dir }}/openshift-install-linux.tar.gz'
+    dest: '{{ home_dir }}'
+
+- name: Copy the kubectl and oc commands to PATH
+  copy:
+    src: '{{ home_dir }}/{{ item }}'
+    dest: /usr/local/sbin
+  loop:
+  - oc
+  - kubectl
+  - openshift-install
+
+- name: Generate ssh keys for core user
+  openssh_keypair:
+    path: '{{ install_dir }}/.ssh/id_rsa'
+    comment: 'core@{{ domain_name }}'
+    state: present
+    force: no
+
