@@ -1,0 +1,5 @@
+---
+
+- hosts: bastion
+  roles:
+  - configure_bastion
