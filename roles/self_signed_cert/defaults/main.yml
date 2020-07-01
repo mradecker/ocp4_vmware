@@ -1,0 +1,11 @@
+---
+
+registry_dir: /opt/registry
+cert_dir: /opt/registry/certs
+registry_name: utilityvm.example.com
+state: California
+city: San Diego
+organization_name: Red Hat
+organizational_unit: GPTE
+email_address: mradecker@redhat.com
+

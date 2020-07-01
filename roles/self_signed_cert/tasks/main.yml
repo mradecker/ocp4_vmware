@@ -1,0 +1,31 @@
+---
+
+- name: Generate Private Key
+  become: yes
+  openssl_privatekey:
+    path: '{{ registry_dir }}/certs/{{ registry_name }}.key'
+    owner: "{{ owner }}"
+
+- name: Generate CSR
+  become: yes
+  openssl_csr:
+    path: '{{ registry_dir }}/certs/{{ registry_name }}.csr'
+    privatekey_path: '{{ registry_dir }}/certs/{{ registry_name }}.key'
+    country_name: US
+    state_or_province_name: "{{ state_name }}"
+    locality_name: "{{ city }}"
+    organization_name: "{{ organization_name }}"
+    organizational_unit_name: "{{ organizational_unit }}"
+    common_name: "{{ registry_name }}"
+    email_address: "{{ email_address }}"
+    owner: "{{ owner }}"
+
+- name: Generate self-signed certificate
+  become: yes
+  openssl_certificate:
+    path: '{{ registry_dir }}/certs/{{ registry_name }}.crt'
+    csr_path: '{{ registry_dir }}/certs/{{ registry_name }}.csr'
+    privatekey_path: '{{ registry_dir }}/certs/{{ registry_name }}.key'
+    provider: selfsigned
+    owner: "{{ owner }}"
+

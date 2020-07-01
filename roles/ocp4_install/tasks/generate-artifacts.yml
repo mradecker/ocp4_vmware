@@ -1,0 +1,72 @@
+---
+
+- name: Set masters to unschedulable
+  lineinfile:
+    path: '{{ install_dir }}/manifests/cluster-scheduler-02-config.yml'
+    regexp: "^mastersSchedulable"
+    line: "  mastersSchedulable: false"
+
+- name: Remove the manifest that creates masters
+  file:
+    path: '{{ install_dir }}/99_openshift-cluster-api_master-machines-*.yaml'
+    state: absent
+
+- name: Create ignition-configs
+  shell: openshift-install create ignition-configs --dir={{ install_dir }}
+
+- name: Set environment variable for INFRA_ID
+  lineinfile:
+    path: '{{ home_dir }}/.bashrc'
+    regexp: "^export INFRA_ID"
+    line: "export INFRA_ID=$(jq -r .infraID {{ install_dir }}/metadata.json)"
+
+- name: Update ignition-configs
+  script: update_ignition.py
+
+- name: Create master node ignition files
+  shell: 'for index in $(seq 0 2); do
+    MASTER_HOSTNAME="{{ INFRA_ID }}-master-$index\n"
+    python3 -c "import base64, json, sys;
+ignition = json.load(sys.stdin);
+files = ignition["storage"].get("files", []);
+files.append({"path": "/etc/hostname", "mode": 420, "contents": {"source": "data:text/plain;charset=utf-8
+;base64," + base64.standard_b64encode(b"$MASTER_HOSTNAME").decode().strip(), "verification": {}}, "filesy
+stem": "root"});
+ignition["storage"]["files"] = files;
+json.dump(ignition, sys.stdout)" <master.ign >"{{ INFRA_ID }}-master-$index-ignition.json"
+done'
+
+- name: Copy bootstrap.ign to registry node
+  shell: 'scp bootstrap.ign {{ registry_node }}:'
+
+- name: Change mode of bootstrap.ign
+  shell: 'ssh {{ registry_node }} chmod 644 bootstrap.ign'
+
+- name: Move bootstrap.ign to /var/www/html
+  shell: 'ssh {{ registry_node }} sudo mv bootstrap.ign /var/www/html'
+
+- name: Use restorecon for SELinux labeling
+  shell: 'ssh {{ registry_node }} sudo restorecon /var/www/html/bootstrap.ign'
+
+- name: Generate file to point to bootstrap.ign on Registry node
+  shell: 'cat << EOF > "{{ install_dir }}/{{ INFRA_ID }}-bootstrap-ignition.json"
+{
+  "ignition": {
+    "config": {
+      "append": [
+        {
+          "source": "http://{{ registry_node }}/bootstrap.ign",
+          "verification": {}
+        }
+      ]
+    },
+    "security": {},
+    "timeouts": {},
+    "version": "2.2.0"
+  },
+  "networkd": {},
+  "passwd": {},
+  "storage": {},
+  "systemd": {}
+}
+EOF'

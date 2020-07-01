@@ -1,0 +1,5 @@
+---
+
+- import_tasks: install-config.yml
+
+- import_tasks: generate-artifacts.yml
