@@ -26,5 +26,10 @@ registry_name: utilityvm.example.com
 owner: mradecke-redhat.com
 api_fip: 169.62.103.167
 
-pub_key: '{{ home_dir }}/.ssh/{{ GUID }}key.pub"
+pub_key: '{{ home_dir }}/.ssh/{{ GUID }}key.pub'
 
+vcenter_server: gd-vcsac01.greydawn.boeinglabnet.net
+vcenter_user:
+vcenter_passwd:
+datacenter:
+datastore:

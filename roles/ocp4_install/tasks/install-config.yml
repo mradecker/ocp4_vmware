@@ -36,14 +36,12 @@
         serviceNetwork:
         - 172.30.0.0/16
       platform:
-        openstack:
-          cloud: {{ project_name }}
-          computeFlavor: {{ flavor }}
-          externalNetwork: external
-          lbFloatingIP: {{ api_fip }}
-          octaviaSupport: "1"
-          region: ""
-          trunkSupport: "1"
+        vsphere:
+          vcenter: {{ vcenter_server }}
+          username: {{ vcenter_user }}
+          password: {{ vcenter_passwd }}
+          datacenter: {{ datacenter }}
+          defaultDatastore: {{ datastore }}
       publish: External
       pullSecret:
       sshKey:
