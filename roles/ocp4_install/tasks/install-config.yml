@@ -28,6 +28,7 @@
           password: {{ vcenter_passwd }}
           datacenter: {{ datacenter }}
           defaultDatastore: {{ datastore }}
+      fips: {{ fips_mode }}
       publish: External
       pullSecret:
       sshKey:
