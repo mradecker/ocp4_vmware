@@ -1,35 +1,27 @@
 ---
 
-flavor: 4c16g30d
-registry_node: utilityvm.example.com
-install_dir: '{{ home_dir }}/openstack-upi'
-INFRA_ID: "{{ lookup('env','INFRA_ID') }}"
-GUID: "{{ lookup('env','GUID') }}"
+utility_node: utility.greydawn.boeing.labnet.net
+install_dir: '{{ home_dir }}/upi-installs'
 ocp_image: rhcos-ocp43
-home_dir: /home/mradecke-redhat.com
-domain_name: "{{ lookup('env','OPENSHIFT_DNS_ZONE') }}"
-cluster_name: '{{ GUID }}'
-project_name: '{{ GUID }}-project'
-bootstrap_node: "{{ INFRA_ID }}-bootstrap.example.com"
-priv_key: '{{ home_dir }}/.ssh/{{ GUID }}key.pem'
-ocp_network: '{{ GUID }}-ocp-network'
-ocp_master_sg: '{{ GUID }}-master_sg'
-ocp_worker_sg: '{{ GUID }}-worker_sg'
-ocp_subnet: '{{ GUID }}-ocp-subnet'
+home_dir: /home/redhatter
+domain_name: greydawn.boeing.labnet.net
+cluster_name: ocpboeing
+bootstrap_node: bootstap.ocpboeing.greydawn.boeing.labnet.net
+
+
 
 merged_secret_path: '{{ install_dir }}/merged_pullsecret.json'
 ocp_pull_secret: '{{ install_dir }}/ocp_pullsecret.json'
 registry_pull_secret: '{{ install_dir }}/pullsecret_config.json'
-LOCAL_REGISTRY: utiltiyvm.example.com:5000
+LOCAL_REGISTRY: bastion.greydawn.boeing.labnet.net:5000
 LOCAL_REPOSITORY: ocp4/openshift4
-registry_name: utilityvm.example.com
-owner: mradecke-redhat.com
-api_fip: 169.62.103.167
+registry_name: bastion.greydawn.boeing.labnet.net
 
-pub_key: '{{ home_dir }}/.ssh/{{ GUID }}key.pub'
+
+pub_key: '{{ install_dir }}/.ssh/id_rsa.pub'
 
 vcenter_server: gd-vcsac01.greydawn.boeinglabnet.net
-vcenter_user:
-vcenter_passwd:
-datacenter:
-datastore:
+vcenter_user: administrator@vsphere.local
+vcenter_passwd: VMwar3!!
+datacenter: Greydawn
+datastore: DS02
