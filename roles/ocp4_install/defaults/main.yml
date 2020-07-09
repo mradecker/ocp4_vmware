@@ -8,15 +8,12 @@ domain_name: greydawn.boeing.labnet.net
 cluster_name: ocpboeing
 bootstrap_node: bootstap.ocpboeing.greydawn.boeing.labnet.net
 
-
-
 merged_secret_path: '{{ install_dir }}/merged_pullsecret.json'
 ocp_pull_secret: '{{ install_dir }}/ocp_pullsecret.json'
 registry_pull_secret: '{{ install_dir }}/pullsecret_config.json'
 LOCAL_REGISTRY: bastion.greydawn.boeing.labnet.net:5000
 LOCAL_REPOSITORY: ocp4/openshift4
 registry_name: bastion.greydawn.boeing.labnet.net
-
 
 pub_key: '{{ install_dir }}/.ssh/id_rsa.pub'
 fips_mode: false
