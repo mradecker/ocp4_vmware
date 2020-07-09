@@ -19,7 +19,7 @@ registry_name: bastion.greydawn.boeing.labnet.net
 
 
 pub_key: '{{ install_dir }}/.ssh/id_rsa.pub'
-
+fips_mode: false
 vcenter_server: gd-vcsac01.greydawn.boeinglabnet.net
 vcenter_user: administrator@vsphere.local
 vcenter_passwd: VMwar3!!
