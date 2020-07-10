@@ -22,7 +22,7 @@
   shell: 'ssh {{ utility_node }} sudo restorecon /var/www/html/bootstrap.ign'
 
 - name: Generate file to point to bootstrap.ign on Utility node
-  shell: 'cat << EOF > "{{ install_dir }}/{{ INFRA_ID }}-bootstrap-ignition.json"
+  shell: 'cat << EOF > "{{ install_dir }}/append-bootstrap.ign"
 {
   "ignition": {
     "config": {
@@ -43,3 +43,10 @@
   "systemd": {}
 }
 EOF'
+
+- name: Base64 encode ignition config files
+  shell: 'base64 -w0 {{ install_dir }}/{{ item.ignition }} > {{ install_dir }}/{{ item.base64 }}'
+  loop: 
+  - { ignition: 'append-bootstrap.ign', base64: 'append-bootstrap.64' }
+  - { ignition: 'master.ign', base64: 'master.64' }
+  - { ignition: 'worker.ign', base64: 'worker.64' }
