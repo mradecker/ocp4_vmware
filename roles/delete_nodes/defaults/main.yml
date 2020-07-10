@@ -3,6 +3,7 @@ vcenter_user: administrator@vsphere.local
 vcenter_passwd: VMwar3!!
 datacenter: Greydawn
 datastore: DS02
-vcenter.vm_power_state:
+domain_name: greydawn.boeing.labnet.net
+cluster_name: ocpboeing
 vcenter.ip: '10.126.69.18'
 folder: /ocpboeing
