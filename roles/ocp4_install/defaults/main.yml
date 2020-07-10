@@ -3,7 +3,7 @@
 utility_node: utility.greydawn.boeing.labnet.net
 install_dir: '{{ home_dir }}/vsphere-upi'
 ocp_image: rhcos-ocp43
-ova_url: 
+ova_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/latest/rhcos-4.3.8-x86_64-vmware.ova
 rhcos_ova: rhcos-4.3.8-x86_64-vmware.x86_64.ova
 
 home_dir: /home/redhatter
@@ -31,6 +31,4 @@ folder: /ocpboeing
 template_name:
 vcenter_network:
 
-appendBootstrapContent:
-masterContent:
-workerContent:
+
