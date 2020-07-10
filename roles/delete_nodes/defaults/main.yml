@@ -1,0 +1,8 @@
+vcenter_server: gd-vcsac01.greydawn.boeinglabnet.net
+vcenter_user: administrator@vsphere.local
+vcenter_passwd: VMwar3!!
+datacenter: Greydawn
+datastore: DS02
+vcenter.vm_power_state:
+vcenter.ip: '10.126.69.18'
+folder: /ocpboeing
