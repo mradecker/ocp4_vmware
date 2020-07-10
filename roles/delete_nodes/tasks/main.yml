@@ -1,0 +1,14 @@
+- name: Delete VMs
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_user }}"
+    password: "{{ vcenter_passwd }}"
+    validate_certs: no
+    cluster: "{{ cluster_name }}"
+    datacenter: "{{ datacenter }}"
+    name: "{{ item }}.{{ domain_name }}"
+    state: absent
+    force: yes
+  register: vmware_guest_results
+  with_items:
+    - "{{ groups[provision_group] }}" 
