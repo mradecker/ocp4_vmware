@@ -2,4 +2,8 @@
 
 - import_playbook: configure_bastion.yml
 
+- import_playbook: create_registry.yml
+
+- import_playbook: mirror_registry.yml
+
 - import_playbook: ocp4_install.yml
