@@ -1,0 +1,5 @@
+---
+
+- hosts: utility
+  roles:
+  - mirror_registry
