@@ -1,0 +1,23 @@
+---
+
+LOCAL_REGISTRY: utilityvm.example.com:5000
+LOCAL_REPOSITORY: ocp4/openshift4
+LOCAL_SECRET_JSON: '{{ install_dir }}/merged_pullsecret.json'
+PRODUCT_REPO: openshift-release-dev
+RELEASE_NAME: ocp-release
+OCP_RELEASE: 4.3.8
+
+home_dir: /home/
+install_dir: '{{ home_dir }}/irvine'
+ocp_version: 4.3.8
+domain_name: example.com
+self_signed_cert: yes
+user: openshift
+user_passwd: redhat
+registry_dir: /opt/registry
+registry_name: 
+auth_dir: /opt/registry/auth
+
+merged_secret_path: '{{ install_dir }}/merged_pullsecret.json'
+ocp_pull_secret: '{{ install_dir }}/ocp_pullsecret.json'
+registry_pull_secret: '{{ install_dir }}/pullsecret_config.json'
