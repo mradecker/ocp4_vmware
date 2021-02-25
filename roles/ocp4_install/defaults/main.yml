@@ -6,30 +6,30 @@ ocp_image: rhcos-ocp43
 ova_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/latest/latest/rhcos-4.3.8-x86_64-vmware.ova
 rhcos_ova: rhcos-4.3.8-x86_64-vmware.x86_64.ova
 
-home_dir: /home/redhatter
-domain_name: greydawn.boeing.labnet.net
-cluster_name: irvine
+home_dir: 
+domain_name: 
+cluster_name: 
 utility_node: utility.{{ cluster_name }}.{{ domain_name }}
 bootstrap_node: 'bootstap.{{ cluster_name }}.{{ domain_name }}'
 
 merged_secret_path: '{{ install_dir }}/merged_pullsecret.json'
 ocp_pull_secret: '{{ install_dir }}/ocp_pullsecret.json'
 registry_pull_secret: '{{ install_dir }}/pullsecret_config.json'
-LOCAL_REGISTRY: bastion.greydawn.boeing.labnet.net:5000
+LOCAL_REGISTRY: 
 LOCAL_REPOSITORY: ocp4/openshift4
-registry_name: bastion.greydawn.boeing.labnet.net
+registry_name: 
 
 pub_key: '{{ install_dir }}/.ssh/id_rsa.pub'
 fips_mode: false
-vcenter_server: gd-vcsac01.greydawn.boeinglabnet.net
+vcenter_server: 
 vcenter_user: administrator@vsphere.local
-vcenter_passwd: VMwar3!!
-datacenter: Greydawn
-datastore: DS02
+vcenter_passwd: 
+datacenter: 
+datastore: 
 vm_power_state:
-vcenter.ip: '10.126.69.18'
-folder: /ocpboeing
-template_name: RHCOS-template
-vcenter_network: '10.126.72.0/24'
+vcenter.ip: 
+folder: 
+template_name: 
+vcenter_network: 
 
 
