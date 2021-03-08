@@ -5,11 +5,12 @@ LOCAL_REPOSITORY: ocp4/openshift4
 LOCAL_SECRET_JSON: '{{ install_dir }}/merged_pullsecret.json'
 PRODUCT_REPO: openshift-release-dev
 RELEASE_NAME: ocp-release
-OCP_RELEASE: 4.3.8
+OCP_RELEASE: 4.6.4
+ARCHITECTURE: x86_64
 
 home_dir: /home/
-install_dir: '{{ home_dir }}/irvine'
-ocp_version: 4.3.8
+install_dir: '{{ home_dir }}/openshift'
+ocp_version: 4.6.4
 domain_name: example.com
 self_signed_cert: yes
 user: openshift
