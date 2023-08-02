@@ -71,7 +71,7 @@
         value: "{{ appendBootstrapContent }}"
   loop: "{{ bootstrap_vms }}"
 
-- name: Create master VMs from ther template
+- name: Create master VMs from the template
   vmware_guest:
     hostname: "{{ vcenter.ip }}"
     username: "{{ vcenter_user }}"
